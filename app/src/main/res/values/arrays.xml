@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+
+    <string-array name="city_names">
+        <item>Select City</item>
+        <item>black</item>
+        <item>white</item>
+        <item>gray</item>
+        <item>red</item>
+        <item>green</item>
+        <item>yellow</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Select Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>

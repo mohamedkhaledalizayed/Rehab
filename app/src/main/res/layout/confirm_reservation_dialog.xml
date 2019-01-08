@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/favourite_item_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/mohamed"
+            android:id="@+id/doctor_image"
+            android:layout_margin="@dimen/_5sdp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_toEndOf="@+id/doctor_image"
+            >
+
+            <smile.khaled.mohamed.rehab.utils.CustomTextView
+                foo:customFont="fonts/Cairo-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="د/مصطفى احمد"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginTop="@dimen/_12sdp"
+                />
+
+            <smile.khaled.mohamed.rehab.utils.CustomTextView
+                foo:customFont="fonts/Cairo-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اخصائى جراحة القلب"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp"
+
+                >
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    style="@style/Widget.MaterialRatingBar.RatingBar"
+                    android:numStars="5"
+                    android:rating="4"
+                    app:mrb_fillBackgroundStars="true"
+                    app:mrb_progressTint="#ffc400"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    />
+
+                <smile.khaled.mohamed.rehab.utils.CustomTextView
+                    foo:customFont="fonts/Cairo-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(300 تقيمات)"
+                    android:id="@+id/reviews"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#a4a4a4"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_date_range_black_24dp"
+            />
+
+        <smile.khaled.mohamed.rehab.utils.CustomTextView
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 الجمعة"
+            android:textColor="#000"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_update_24dp"
+            />
+
+        <smile.khaled.mohamed.rehab.utils.CustomTextView
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13:45 مساء"
+            android:textColor="#000"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_loyalty_black_24dp"
+            />
+
+        <smile.khaled.mohamed.rehab.utils.CustomTextView
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300 جنيه"
+            android:textColor="#000"
+            />
+
+
+    </LinearLayout>
+
+    <smile.khaled.mohamed.rehab.utils.CustomButton
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/review_edit_text_bg"
+        android:text="ارفق صورة"
+        android:textColor="#ccc"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_2sdp"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomEditText
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:hint="وصف الحالة"
+        android:textColor="#ccc"
+        android:inputType="textMultiLine"
+        android:background="@drawable/review_edit_text_bg"/>
+
+
+    <smile.khaled.mohamed.rehab.utils.CustomButton
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/signin_bg_btn"
+        android:text="احجز"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        />
+</LinearLayout>

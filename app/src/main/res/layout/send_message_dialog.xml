@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/favourite_item_bg"
+    android:gravity="center"
+    android:layout_margin="@dimen/_10sdp"
+    android:orientation="vertical">
+
+    <smile.khaled.mohamed.rehab.utils.CustomEditText
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:inputType="textMultiLine"
+        android:hint="اكتب الرسالة هنا"
+        android:background="@drawable/review_edit_text_bg"/>
+
+
+    <smile.khaled.mohamed.rehab.utils.CustomButton
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/signin_bg_btn"
+        android:text="ارسال"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        />
+
+</LinearLayout>

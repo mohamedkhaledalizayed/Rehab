@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_7sdp"
+    android:layout_marginStart="@dimen/_7sdp"
+    android:layout_marginEnd="@dimen/_7sdp"
+    android:background="@drawable/favourite_item_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/mohamed"
+            android:id="@+id/doctor_image"
+            android:layout_margin="@dimen/_5sdp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_toEndOf="@+id/doctor_image"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="د/مصطفى احمد"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginTop="@dimen/_12sdp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اخصائى جراحة القلب"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_15sdp"
+                style="@style/Widget.MaterialRatingBar.RatingBar"
+                android:numStars="5"
+                android:rating="4"
+                app:mrb_fillBackgroundStars="true"
+                app:mrb_progressTint="#ffc400"
+                android:layout_marginTop="@dimen/_5sdp"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/_5sdp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#a4a4a4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The star border icon is drawn with the help of Inkscape, by downloading the star icon SVG from Material Icons, duplicating the outer border path of the star, setting a stroke of 4dp, running stroke to path on it."
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:padding="@dimen/_5sdp"
+        />
+
+</LinearLayout>

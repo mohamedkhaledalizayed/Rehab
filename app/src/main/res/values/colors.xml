@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#008577</color>
+    <color name="colorFloatButton">#D81B60</color>
+    <color name="success_toast_color">#8bc34a</color>
+    <color name="fail_toast_color">#ff5a5f</color>
+    <color name="info_toast_color">#3793cc</color>
+    <color name="background_color">#e7e6e6</color>
+    <color name="sign_in_bg_color">#2B445E</color>
+    <color name="text_color_white">#FFF</color>
+    <color name="line_bg_color">#d7d7d7</color>
+</resources>

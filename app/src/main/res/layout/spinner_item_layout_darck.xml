@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smile.khaled.mohamed.rehab.utils.CustomTextView
+    foo:customFont="fonts/Cairo-Regular.ttf"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:textColor="#fff"
+    tools:text="assasas"
+    android:textSize="@dimen/_14ssp"
+    android:textStyle="bold"
+    android:background="#2B445E"
+    android:textAlignment="center"
+    android:padding="4dp"
+    xmlns:foo="http://schemas.android.com/apk/res-auto" />

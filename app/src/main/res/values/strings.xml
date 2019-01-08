@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Rehab</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="patient">Patient</string>
+    <string name="doctor">Doctor</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Sign In</string>
+    <string name="dont_have_account">Dont have Account ! </string>
+    <string name="create_account"><![CDATA[
+<u>Create New Account</u>
+    ]]></string>
+    <string name="choose_account_type">Choose The Type Of Account You Want To Create</string>
+    <string name="next">Next</string>
+    <string name="create_new_account">Create Account</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">E-mail</string>
+    <string name="re_send"><![CDATA[
+<u>Resend</u>
+    ]]></string>
+    <string name="enter_code">ادخل الرمز</string>
+    <string name="n_id">Identity</string>
+    <string name="universty_certif">University degree</string>
+    <string name="spec_card">Card Health Specialties</string>
+    <string name="personal_photo">personal picture</string>
+    <string name="doctor_exper">Doctor experiences</string>
+    <string name="main">Home</string>
+    <string name="messaged">Messages</string>
+    <string name="about_us">About Us</string>
+    <string name="terms">Terms</string>
+    <string name="logout">Logout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sgin_in_toast_select_user_type">You should select user type first</string>
+    <string name="_300_reviews"><![CDATA[
+<u>(300 Review)</u>
+    ]]></string>
+</resources>

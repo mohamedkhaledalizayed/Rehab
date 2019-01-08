@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+<ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:id="@+id/searchContainer"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.fragment.PatientSearchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        tools:context=".views.fragment.PatientSearchFragment"
+        >
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/man"
+            android:layout_marginTop="@dimen/_20sdp"
+            />
+
+        <LinearLayout
+            style="@style/EditText1Style2"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:id="@+id/all_spec_container"
+            android:padding="3dp">
+
+            <Spinner
+                android:id="@+id/all_spec_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/EditText1Style2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/city_container"
+            android:padding="3dp">
+
+            <Spinner
+                android:id="@+id/city_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/EditText1Style2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="3dp">
+
+            <Spinner
+                android:id="@+id/destric_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/EditText1Style2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="3dp">
+
+            <Spinner
+                android:id="@+id/gender_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/EditText1Style2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="3dp">
+
+            <Spinner
+                android:id="@+id/nationality_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+        </LinearLayout>
+
+
+
+
+
+
+        <smile.khaled.mohamed.rehab.utils.CustomButton
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:background="@drawable/signin_bg_btn"
+            android:text="Search"
+            android:textColor="#fff"
+            android:id="@+id/btn"
+            android:textSize="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_20sdp"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>
+</layout>

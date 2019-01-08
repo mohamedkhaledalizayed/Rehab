@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Rehab</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="patient">مريض</string>
+    <string name="doctor">طبيب</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="dont_have_account">ليس لديك حساب !</string>
+    <string name="create_account"><![CDATA[
+<u>قم بانشاء حساب</u>
+    ]]></string>
+    <string name="choose_account_type">اختر نوع الحساب الذى تريد انشائه</string>
+    <string name="next">التالى</string>
+    <string name="create_new_account">انشاء حساب</string>
+    <string name="phone_number">رقم الجوال</string>
+    <string name="email">البريد الالكترونى</string>
+    <string name="re_send"><![CDATA[
+<u>اعاده ارسال</u>
+    ]]></string>
+    <string name="enter_code">ادخل الرمز</string>
+    <string name="n_id">الهويه</string>
+    <string name="universty_certif">الشهادة الجامعية</string>
+    <string name="spec_card">بطاقة التخصصات الصحية</string>
+    <string name="personal_photo">الصورة الشخصية</string>
+    <string name="doctor_exper">خبرات الطبيب</string>
+    <string name="main">الرئيسية</string>
+    <string name="messaged">البريد</string>
+    <string name="about_us">من نحن</string>
+    <string name="terms">الشروط و الاحكام</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="sgin_in_toast_select_user_type">You should select user type first</string>
+    <string name="_300_reviews"><![CDATA[
+<u>(300 تقيمات)</u>
+    ]]></string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/_home">
+        <item android:title="@string/main"
+            android:id="@+id/home"
+            android:icon="@drawable/home"/>
+    </group>
+
+    <group android:id="@+id/_messages">
+        <item android:title="@string/messaged"
+            android:id="@+id/messages"
+            android:icon="@drawable/send_icon"/>
+    </group>
+
+    <group android:id="@+id/_about_us">
+    <item android:title="@string/about_us"
+        android:id="@+id/about_us"
+        android:icon="@drawable/about_app"/>
+    </group>
+
+    <group android:id="@+id/_terms">
+        <item android:title="@string/terms"
+            android:id="@+id/terms"
+            android:icon="@drawable/shroot"/>
+    </group>
+
+    <group android:id="@+id/_logout">
+        <item android:title="@string/logout"
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"/>
+    </group>
+
+
+
+
+</menu>

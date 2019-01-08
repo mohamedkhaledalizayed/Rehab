@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smile.khaled.mohamed.rehab.utils.CustomTextView
+    foo:customFont="fonts/Cairo-Regular.ttf"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:textColor="#fff"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    xmlns:foo="http://schemas.android.com/tools" />

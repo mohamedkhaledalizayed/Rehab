@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+    <ScrollView
+        xmlns:foo="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2B445E"
+        tools:context=".views.activity.DoctorSignUpActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/man"
+        android:layout_marginTop="@dimen/_40sdp"
+        />
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_account"
+        android:textSize="@dimen/_18ssp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_15sdp"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <Spinner
+            android:id="@+id/city_spinner"
+            style="@style/EditText1Style"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="-5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="#d7d7d7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        >
+
+        <Spinner
+            android:id="@+id/distric_spinner"
+            style="@style/EditText1Style"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="-5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="#d7d7d7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <Spinner
+            android:id="@+id/spec_spinner"
+            style="@style/EditText1Style"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="-5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="#d7d7d7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <Spinner
+            android:id="@+id/gender_spinner"
+            style="@style/EditText1Style"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="-5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="#d7d7d7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <Spinner
+            android:id="@+id/nat_spinner"
+            style="@style/EditText1Style"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:src="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="-5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/n_id"
+        android:textColor="#fff"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cloud_upload_black_24dp"
+        android:onClick="uploadIdentity"
+        android:id="@+id/identity"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/universty_certif"
+        android:textColor="#fff"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cloud_upload_black_24dp"
+        android:onClick="uploadUniversityDegree"
+        android:id="@+id/university_degree"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spec_card"
+        android:textColor="#fff"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cloud_upload_black_24dp"
+        android:onClick="uploadCardHealth"
+        android:id="@+id/card_health_specialties"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_12ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_photo"
+        android:textColor="#fff"
+
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cloud_upload_black_24dp"
+        android:onClick="uploadPersonalPicture"
+        android:id="@+id/personal_picture"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomEditText
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/doctor_exper"
+        android:id="@+id/doctor_experiences"
+        style="@style/EditText1Style"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="#d7d7d7"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomButton
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_36sdp"
+        android:background="@drawable/signin_bg_btn"
+        android:text="@string/create_new_account"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18ssp"
+        android:layout_margin="@dimen/_20sdp"
+        android:onClick="next"
+        />
+
+
+</LinearLayout>
+    </ScrollView>
+</layout>

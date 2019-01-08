@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/_7sdp"
+    android:background="@drawable/favourite_item_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/_5sdp"
+        >
+
+        <smile.khaled.mohamed.rehab.utils.CustomTextView
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اسم المستخدم"
+            android:textColor="#000"
+            android:textSize="@dimen/_15ssp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            />
+
+        <smile.khaled.mohamed.rehab.utils.CustomTextView
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 مارس 2016"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="#6b6b6b"
+            android:layout_gravity="center_vertical"
+            />
+
+
+
+
+    </LinearLayout>
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_15sdp"
+        style="@style/Widget.MaterialRatingBar.RatingBar"
+        android:numStars="5"
+        android:rating="4"
+        android:isIndicator="true"
+        app:mrb_fillBackgroundStars="true"
+        app:mrb_progressTint="#ffc400"
+        android:layout_margin="@dimen/_5sdp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#a4a4a4"/>
+
+    <smile.khaled.mohamed.rehab.utils.CustomTextView
+        foo:customFont="fonts/Cairo-Regular.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The star border icon is drawn with the help of Inkscape, by downloading the star icon SVG from Material Icons, duplicating the outer border path of the star, setting a stroke of 4dp, running stroke to path on it."
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:padding="@dimen/_5sdp"
+        />
+
+</LinearLayout>
+</layout>
