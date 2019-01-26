@@ -13,15 +13,16 @@ import java.util.List;
 
         import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.databinding.ReviewItemBinding;
+import smile.khaled.mohamed.rehab.service.responses.patient.reviews.DataItem;
 import smile.khaled.mohamed.rehab.views.fragment.Favourite;
 
 public class DoctorReviewsAdapter extends RecyclerView.Adapter<DoctorReviewsAdapter.MyViewHolder> {
 
-    private List<Favourite> recentList;
+    private List<DataItem> recentList;
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public DoctorReviewsAdapter(Context context, List<Favourite> recentList) {
+    public DoctorReviewsAdapter(Context context, List<DataItem> recentList) {
         this.recentList = recentList;
         this.context=context;
     }
@@ -41,12 +42,13 @@ public class DoctorReviewsAdapter extends RecyclerView.Adapter<DoctorReviewsAdap
 
     @Override
     public void onBindViewHolder(final DoctorReviewsAdapter.MyViewHolder holder, final int position) {
-
+        holder.binding.setReview(recentList.get(position));
+        holder.binding.rateBar.setRating(Float.parseFloat(recentList.get(position).getRate()));
     }
 
     @Override
     public int getItemCount() {
-        return 25;
+        return recentList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

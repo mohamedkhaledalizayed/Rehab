@@ -1,5 +1,11 @@
 <resources>
+    <string name="api_key">AIzaSyA2addBq-6htPj_gXa1W6lebUui8kd2Vus</string>
     <string name="app_name">Rehab</string>
+    <string name="enable_gps_message">Please enable GPS in high accuracy mode to get your location</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
+    <string name="enable_gps">Enable GPS</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="patient">مريض</string>

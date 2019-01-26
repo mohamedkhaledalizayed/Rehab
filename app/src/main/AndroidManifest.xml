@@ -4,7 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
     <application
         android:name=".app.Rehab"
         android:allowBackup="true"
@@ -13,6 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
+
+
         <activity
             android:name=".views.activity.both.SplashScreenActivity"
             android:screenOrientation="portrait"
@@ -57,7 +67,8 @@
         <activity android:name=".views.activity.DoctorReviewsActivity" />
         <activity android:name=".views.activity.both.MessagesActivity" />
         <activity android:name=".views.activity.both.AboutUsActivity" />
-        <activity android:name=".views.activity.both.TermsActivity"></activity>
+        <activity android:name=".views.activity.both.TermsActivity" />
+        <activity android:name=".views.activity.MapActivity"></activity>
     </application>
 
 </manifest>

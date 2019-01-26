@@ -28,5 +28,6 @@ public class Constants {
     public static final int CUSTOM_NO_INTERNET = 180;
     public static final int SPINNER_LOADING = 936;
     public static final int SPINNER_ERROR = 134;
+    public static final String DOCTOR_ID = "doctor_id";
 
 }

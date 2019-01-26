@@ -1,7 +1,8 @@
 package smile.khaled.mohamed.rehab.views.activity;
 
 public interface ISearchResultHandler {
-    void onResevationClick(int id);
-    void onShareClick(int id);
-    void onFavouriteClick(int id);
+    void onResevationClick(String id);
+    void onShareClick(String id);
+    void addFavourite(String id);
+    void deleteFavourite(String id);
 }

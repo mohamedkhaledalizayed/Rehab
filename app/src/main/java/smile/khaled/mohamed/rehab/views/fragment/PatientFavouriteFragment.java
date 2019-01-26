@@ -1,22 +1,43 @@
 package smile.khaled.mohamed.rehab.views.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.tripl3dev.prettystates.StateExecuterKt;
+import com.tripl3dev.prettystates.StatesConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
+import smile.khaled.mohamed.rehab.data.CacheUtils;
+import smile.khaled.mohamed.rehab.service.RetrofitModule;
+import smile.khaled.mohamed.rehab.service.ServiceApi;
+import smile.khaled.mohamed.rehab.service.requests.patient.DocotorFavourite;
+import smile.khaled.mohamed.rehab.service.responses.IFavouriteDeleteHandler;
+import smile.khaled.mohamed.rehab.service.responses.patient.favourites.DataItem;
+import smile.khaled.mohamed.rehab.service.responses.patient.favourites.FavouriteResponse;
+import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.views.adapter.PatientFavouriteAdapter;
 
+import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_DATA;
 
-public class PatientFavouriteFragment extends Fragment {
+
+public class PatientFavouriteFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,7 +74,7 @@ public class PatientFavouriteFragment extends Fragment {
         }
     }
 
-    private List<Favourite> recentList = new ArrayList<>();
+    private List<DataItem> recentList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,10 +87,45 @@ public class PatientFavouriteFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        loadFavourites();
+
         return view;
     }
 
+    private void loadFavourites() {
+        StateExecuterKt.setState(recyclerView, StatesConstants.LOADING_STATE);
 
+
+        Map<String,String> favourite=new HashMap<String,String>();
+        favourite.put("token",CacheUtils.getUserToken(getActivity(),PATIENT_DATA));
+        favourite.put("type","select");
+        service.getFavourites(favourite).enqueue(new Callback<FavouriteResponse>() {
+            @Override
+            public void onResponse(Call<FavouriteResponse> call, Response<FavouriteResponse> response) {
+                StateExecuterKt.setState(recyclerView, StatesConstants.NORMAL_STATE);
+                if (response.body().getStatus().equals("200")){
+                    recentList.clear();
+                    recentList.addAll(response.body().getData());
+                    mAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<FavouriteResponse> call, Throwable t) {
+                Log.e("oooooo",t.getMessage());
+                View v= StateExecuterKt.setState(recyclerView, StatesConstants.ERROR_STATE);
+                Button errorBt = v.findViewById(R.id.textButton);
+                errorBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        loadFavourites();
+                    }
+                });
+            }
+        });
+    }
 
 
 }

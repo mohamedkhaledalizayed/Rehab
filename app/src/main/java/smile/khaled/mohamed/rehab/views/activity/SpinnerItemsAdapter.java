@@ -11,12 +11,13 @@ import java.util.List;
 
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.data.Constants;
+import smile.khaled.mohamed.rehab.model.SpinnerData;
 
 public class SpinnerItemsAdapter extends BaseAdapter {
 
-    private List<String> items ;
+    private List<SpinnerData> items ;
     private int bgType ;
-    public SpinnerItemsAdapter(List<String> items, int bgType){
+    public SpinnerItemsAdapter(List<SpinnerData> items, int bgType){
         this.items=items;
         this.bgType=bgType;
     }
@@ -50,7 +51,7 @@ public class SpinnerItemsAdapter extends BaseAdapter {
         } else {
             textView = (TextView) view;
         }
-        textView.setText(getItem(i).toString());
+        textView.setText(items.get(i).getName());
         return textView;
     }
 }

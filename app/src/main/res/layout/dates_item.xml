@@ -17,6 +17,7 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
             android:src="@drawable/mohamed"
+            android:scaleType="centerCrop"
             android:id="@+id/doctor_image"
             android:layout_margin="@dimen/_5sdp"
             />
@@ -35,6 +36,7 @@
                 android:text="د/مصطفى احمد"
                 android:textStyle="bold"
                 android:textColor="#000"
+                android:id="@+id/name"
                 android:layout_marginTop="@dimen/_12sdp"
                 />
 
@@ -44,6 +46,7 @@
                 android:text="اخصائى جراحة القلب"
                 android:textStyle="bold"
                 android:textColor="#000"
+                android:id="@+id/spec"
                 android:layout_marginTop="@dimen/_5sdp"
                 />
 
@@ -52,7 +55,9 @@
                 android:layout_height="@dimen/_15sdp"
                 style="@style/Widget.MaterialRatingBar.RatingBar"
                 android:numStars="5"
+                android:id="@+id/rate"
                 android:rating="4"
+                android:isIndicator="true"
                 app:mrb_fillBackgroundStars="true"
                 app:mrb_progressTint="#ffc400"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -86,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1 الجمعة"
+            android:id="@+id/date"
             android:textColor="#000"
             />
 
@@ -110,6 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="13:45 مساء"
+            android:id="@+id/time"
             android:textColor="#000"
             />
 
@@ -134,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="300 جنيه"
+            android:id="@+id/cost"
             android:textColor="#000"
             />
 
@@ -154,6 +162,7 @@
             android:layout_height="@dimen/_25sdp"
             android:background="@drawable/dates_btn_bg"
             android:text="اتصل"
+            android:id="@+id/call"
             android:layout_marginEnd="@dimen/_5sdp"
             android:textColor="#fff"
             android:textStyle="bold"
@@ -164,6 +173,7 @@
             android:layout_height="@dimen/_25sdp"
             android:background="@drawable/dates_btn_bg"
             android:text="رسالة"
+            android:id="@+id/message"
             android:layout_marginEnd="@dimen/_5sdp"
             android:textColor="#fff"
             android:textStyle="bold"
@@ -174,6 +184,7 @@
             android:layout_height="@dimen/_25sdp"
             android:background="@drawable/dates_cancel_btn_bg"
             android:text="الغاء"
+            android:id="@+id/cancel"
             android:textColor="#fff"
             android:textStyle="bold"
             />

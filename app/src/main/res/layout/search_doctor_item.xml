@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="smile.khaled.mohamed.rehab.views.fragment.Favourite"/>
+            type="smile.khaled.mohamed.rehab.service.responses.patient.doctorfilter.DataItem"/>
     </data>
 <LinearLayout
     xmlns:foo="http://schemas.android.com/apk/res-auto"
@@ -27,7 +27,7 @@
             android:id="@+id/doctor_image"
             android:scaleType="centerCrop"
             android:layout_margin="@dimen/_5sdp"
-            bind:imageUrl="@{user.imageUrl}"
+            bind:imageUrl="@{user.img}"
             />
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 foo:customFont="fonts/Cairo-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.username}"
+                android:text="@{user.name}"
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:layout_marginTop="@dimen/_12sdp"
@@ -52,7 +52,7 @@
                 foo:customFont="fonts/Cairo-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="اخصائى جراحة القلب"
+                android:text="@{user.specialtyName}"
                 android:textStyle="bold"
                 android:maxLength="30"
                 android:textAlignment="center"
@@ -65,7 +65,7 @@
                 android:layout_height="@dimen/_15sdp"
                 style="@style/Widget.MaterialRatingBar.RatingBar"
                 android:numStars="5"
-                android:rating="4"
+                android:rating="@{user.evaluation.rate}"
                 android:isIndicator="true"
                 android:id="@+id/rate"
                 android:clickable="false"
@@ -88,7 +88,7 @@
         foo:customFont="fonts/Cairo-Regular.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The star border icon is drawn with the help of Inkscape, by downloading the star icon SVG from Material Icons, duplicating the outer border path of the star, setting a stroke of 4dp, running stroke to path on it."
+        android:text="@{user.note}"
         android:textAlignment="center"
         android:textColor="#000"
         android:id="@+id/about"
@@ -109,10 +109,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_black_24dp"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginBottom="@dimen/_3sdp"
             android:id="@+id/favourite"
+            android:src="@drawable/ic_favorite_border_24dp"
             android:layout_marginStart="@dimen/_15sdp"
             />
 

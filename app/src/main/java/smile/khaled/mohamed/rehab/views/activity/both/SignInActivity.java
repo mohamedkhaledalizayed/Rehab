@@ -24,6 +24,7 @@ import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.data.CacheUtils;
 import smile.khaled.mohamed.rehab.databinding.ActivitySignInBinding;
 import smile.khaled.mohamed.rehab.service.requests.both.SignInData;
+import smile.khaled.mohamed.rehab.service.responses.both.logindoctor.LoginDoctorResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.signin.Data;
 import smile.khaled.mohamed.rehab.service.responses.both.signin.SignInResponse;
 import smile.khaled.mohamed.rehab.utils.AppUtils;
@@ -34,7 +35,9 @@ import smile.khaled.mohamed.rehab.views.activity.BaseActivity;
 import smile.khaled.mohamed.rehab.views.activity.DoctorHomeActivity;
 import smile.khaled.mohamed.rehab.views.activity.PatientHomeActivity;
 
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR;
 import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_ACCOUNT;
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_DATA;
 import static smile.khaled.mohamed.rehab.data.Constants.PATIENT;
 import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_ACCOUNT;
 import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_DATA;
@@ -95,9 +98,6 @@ public class SignInActivity extends BaseActivity {
 //            return;
 //        }
 
-//        mView = new CatLoadingView();
-//        mView.setCancelable(false);
-//        mView.show(getSupportFragmentManager(), "");
 
                 if (accountType==PATIENT_ACCOUNT){
                     signInAsPatient(username,password);
@@ -123,6 +123,32 @@ public class SignInActivity extends BaseActivity {
     private void signInAsDoctor(String username, String password) {
 //        startActivity(new Intent(SignInActivity.this,DoctorHomeActivity.class));
 
+        Map<String,String> map=new HashMap<>();
+        map.put("username",username);
+        map.put("password",password);
+        service.signInAsDoctorApi(map).enqueue(new Callback<LoginDoctorResponse>() {
+            @Override
+            public void onResponse(Call<LoginDoctorResponse> call, Response<LoginDoctorResponse> response) {
+                if (response.body().getStatus().equals("200")){
+                    CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(DOCTOR_DATA, response.body().getData().getToken()).apply();
+                    CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(USER_STATUS, "true").apply();
+                    CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(USER_TYPE, DOCTOR).apply();
+                    startActivity(new Intent(SignInActivity.this,DoctorHomeActivity.class));
+                    finish();
+                }else if (response.code()==401){
+                    AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
+                }else if (response.code()==2){
+                    validate();
+                }else {
+                    AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginDoctorResponse> call, Throwable t) {
+                AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
+            }
+        });
     }
 
     private void signInAsPatient(String username, String password) {
@@ -139,23 +165,22 @@ public class SignInActivity extends BaseActivity {
 
         Map<String,String> map=new HashMap<>();
         map.put("username",username);
-        map.put("password",password);
+        map.put("password",password);//d3ee0294e4e9007bfd0fa1dd9d06e8eb8
         service.signInAsPatientApi(map).enqueue(new Callback<SignInResponse>() {
             @Override
             public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
-                if (response.code()==200){
-                    CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(PATIENT_DATA, response.body().getData().toString()).apply();
+                if (response.body().getStatus().equals("200")){
+                    CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(PATIENT_DATA, response.body().getData().getToken()).apply();
                     CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(USER_STATUS, "true").apply();
                     CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(USER_TYPE, PATIENT).apply();
-//                    mView.dismiss();
-                    startActivity(new Intent(SignInActivity.this,DoctorHomeActivity.class));
+                    startActivity(new Intent(SignInActivity.this,PatientHomeActivity.class));
                     finish();
                 }else if (response.code()==401){
                     AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
                 }else if (response.code()==2){
                     validate();
                 }else {
-
+                    AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
                 }
             }
 

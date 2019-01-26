@@ -3,10 +3,12 @@ package smile.khaled.mohamed.rehab.views.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +16,19 @@ import android.view.ViewGroup;
 import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.databinding.FragmentPatientSearchBinding;
+import smile.khaled.mohamed.rehab.model.SpinnerData;
 import smile.khaled.mohamed.rehab.service.responses.both.cities.CityResponse;
+import smile.khaled.mohamed.rehab.service.responses.both.nationality.NationalityResponse;
+import smile.khaled.mohamed.rehab.service.responses.both.neighborhood.NeighborhoodResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.specialty.SpecialtyResponse;
 import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.utils.ViewUtils;
@@ -96,25 +103,23 @@ public class PatientSearchFragment extends BaseFragment {
                 search();
             }
         });
-//        setAllSpecSpinner(getGenderNames(getContext()));
-//        setCitySpinner(getGenderNames(getContext()));
-        setDestricSpinner(getGenderNames(getContext()));
-        setGenderSpinner(getGender(getContext()));
-        setNationalitySpinner(getGenderNames(getContext()));
-
-
                 loadAllSpecialty();
+                loadCities();
+                loadNationality();
+                loadNeighborhood();
+        setGenderSpinner(getGender(getContext()));
 
+        return binding.getRoot();
+    }
+    final List<SpinnerData> cityList = new ArrayList<>();
 
-
-
-        final List<String> cityList = new ArrayList<>();
-        cityList.add("اختار المدينة");
+    private void loadCities() {
+        cityList.add(new SpinnerData("0","اختار المدينة"));
         service.cityApi().enqueue(new Callback<CityResponse>() {
             @Override
             public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
                 for (int i = 0; i<response.body().getData().size(); i++){
-                    cityList.add(response.body().getData().get(i).getNameAr());
+                    cityList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getCityName()));
                 }
                 setCitySpinner(cityList);
             }
@@ -124,20 +129,64 @@ public class PatientSearchFragment extends BaseFragment {
 
             }
         });
-
-
-        return binding.getRoot();
     }
 
+    final List<SpinnerData> nationalityList = new ArrayList<>();
+
+    private void loadNationality(){
+        nationalityList.add(new SpinnerData("0","اختار الجنسية"));
+        Configuration config = getActivity().getResources().getConfiguration();
+
+        Map<String,String> map=new HashMap<>();
+        map.put("lang",config.locale.getLanguage());
+        service.nationality(map).enqueue(new Callback<NationalityResponse>() {
+            @Override
+            public void onResponse(Call<NationalityResponse> call, Response<NationalityResponse> response) {
+                for (int i=0; i < response.body().getData().size();i++){
+                    nationalityList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getName()));
+                }
+                setNationalitySpinner(nationalityList);
+            }
+
+            @Override
+            public void onFailure(Call<NationalityResponse> call, Throwable t) {
+
+            }
+        });
+    }
+    final List<SpinnerData> neighborhoodList = new ArrayList<>();
+
+    private void loadNeighborhood(){
+        neighborhoodList.add(new SpinnerData("0","اختار الحى"));
+        Configuration config = getActivity().getResources().getConfiguration();
+
+        Map<String,String> map=new HashMap<>();
+        map.put("lang",config.locale.getLanguage());
+        service.neighborhood(map).enqueue(new Callback<NeighborhoodResponse>() {
+            @Override
+            public void onResponse(Call<NeighborhoodResponse> call, Response<NeighborhoodResponse> response) {
+                for (int i=0; i < response.body().getData().size();i++){
+                    neighborhoodList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getName()));
+                }
+                setDestricSpinner(neighborhoodList);
+            }
+
+            @Override
+            public void onFailure(Call<NeighborhoodResponse> call, Throwable t) {
+
+            }
+        });
+    }
+    final List<SpinnerData> specialtyList = new ArrayList<>();
+
     private void loadAllSpecialty(){
-        final List<String> specialtyList = new ArrayList<>();
-        specialtyList.add("كل التخصصات");
+        specialtyList.add(new SpinnerData("0","كل التخصصات"));
         service.specialtyApi().enqueue(new Callback<SpecialtyResponse>() {
             @Override
             public void onResponse(Call<SpecialtyResponse> call, Response<SpecialtyResponse> response) {
 
                 for (int i = 0; i<response.body().getData().size(); i++){
-                    specialtyList.add(response.body().getData().get(i).getName());
+                    specialtyList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getName()));
                 }
                 setAllSpecSpinner(specialtyList);
             }
@@ -151,107 +200,89 @@ public class PatientSearchFragment extends BaseFragment {
 
     private void search() {
 
+        String city = "";
+        String nationality = "";
+        String neighborhood = "";
+        String specialty = "";
+        String gender = "";
         if (!AppUtils.isInternetAvailable(getContext())) {
             AppUtils.showErrorToast(getContext(),"Check your internet connection");
             return;
         }
 
-        if (binding.allSpecSpinner.getSelectedItemPosition() == 0){
-            AppUtils.showInfoToast(getContext(),"Select Specialty");
-            return;
+        if (binding.allSpecSpinner.getSelectedItemPosition() != 0){
+            specialty = specialtyList.get(binding.allSpecSpinner.getSelectedItemPosition()).getId()+"";
+            Log.e("specialtyList",specialtyList.get(binding.allSpecSpinner.getSelectedItemPosition()).getId());
         }
 
-        if (binding.citySpinner.getSelectedItemPosition() == 0){
-            AppUtils.showInfoToast(getContext(),"Select City");
-            return;
+        if (binding.citySpinner.getSelectedItemPosition() != 0){
+            city = cityList.get(binding.citySpinner.getSelectedItemPosition()).getId()+"";
+            Log.e("cityList",cityList.get(binding.citySpinner.getSelectedItemPosition()).getId());
         }
 
-        if (binding.destricSpinner.getSelectedItemPosition() == 0){
-            AppUtils.showInfoToast(getContext(),"Select City");
-            return;
+        if (binding.destricSpinner.getSelectedItemPosition() != 0){
+            neighborhood = neighborhoodList.get(binding.destricSpinner.getSelectedItemPosition()).getId()+"";
+            Log.e("neighborhoodList",neighborhoodList.get(binding.destricSpinner.getSelectedItemPosition()).getId());
         }
 
-        if (binding.genderSpinner.getSelectedItemPosition() == 0){
-            AppUtils.showInfoToast(getContext(),"Select City");
-            return;
+        if (binding.genderSpinner.getSelectedItemPosition() != 0){
+            if (binding.genderSpinner.getSelectedItemPosition() == 1){
+                gender = "0";
+            }else {
+                gender = "1";
+            }
         }
 
-        if (binding.nationalitySpinner.getSelectedItemPosition() == 0){
-            AppUtils.showInfoToast(getContext(),"Select City");
-            return;
+        if (binding.nationalitySpinner.getSelectedItemPosition() != 0){
+            nationality = nationalityList.get(binding.nationalitySpinner.getSelectedItemPosition()).getId()+"";
+            Log.e("nationalityList",nationalityList.get(binding.nationalitySpinner.getSelectedItemPosition()).getId());
         }
         Intent intent = new Intent(getActivity(),SearchResultActivity.class);
-        intent.putExtra(FILTER_DOCTORS_BY_SPECIALTY,binding.allSpecSpinner.getSelectedItem().toString());
-        intent.putExtra(FILTER_DOCTORS_BY_CITY,binding.citySpinner.getSelectedItem().toString());
-        intent.putExtra(FILTER_DOCTORS_BY_DESTRIC,binding.destricSpinner.getSelectedItem().toString());
-        intent.putExtra(FILTER_DOCTORS_BY_GENDER,binding.genderSpinner.getSelectedItem().toString());
-        intent.putExtra(FILTER_DOCTORS_BY_NATIONALTY,binding.nationalitySpinner.getSelectedItem().toString());
+        intent.putExtra(FILTER_DOCTORS_BY_SPECIALTY,specialty);
+        intent.putExtra(FILTER_DOCTORS_BY_CITY,city);
+        intent.putExtra(FILTER_DOCTORS_BY_DESTRIC,neighborhood);
+        intent.putExtra(FILTER_DOCTORS_BY_GENDER,gender);
+        intent.putExtra(FILTER_DOCTORS_BY_NATIONALTY,nationality);
         startActivity(intent);
 
     }
 
 
-    public void setAllSpecSpinner(List<String> list){
+    public void setAllSpecSpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.allSpecSpinner.setAdapter(adapter);
     }
 
-    public void setCitySpinner(List<String> list){
+    public void setCitySpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.citySpinner.setAdapter(adapter);
     }
 
-    public void setDestricSpinner(List<String> list){
+    public void setDestricSpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.destricSpinner.setAdapter(adapter);
     }
 
-    public void setGenderSpinner(List<String> list){
+    public void setGenderSpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.genderSpinner.setAdapter(adapter);
     }
 
-    public void setNationalitySpinner(List<String> list){
+    public void setNationalitySpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.nationalitySpinner.setAdapter(adapter);
     }
 
-    public static List<String> getGender(Context context){
+    public static List<SpinnerData> getGender(Context context){
         String[] genderArray = context.getResources().getStringArray(R.array.gender);
-        final List<String> genders = new ArrayList<>(genderArray.length);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
+        final List<SpinnerData> genders = new ArrayList<>(genderArray.length);
+        genders.add(new SpinnerData("0",genderArray[0]));
+        genders.add(new SpinnerData("0",genderArray[1]));
+        genders.add(new SpinnerData("1",genderArray[2]));
+
 
         return genders;
     }
 
-    public static List<String> getGenderNames(Context context) {
-        String[] genderArray = context.getResources().getStringArray(R.array.city_names);
-        final List<String> genders = new ArrayList<>(genderArray.length*3);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-
-        return genders;
-    }
 
 }

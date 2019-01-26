@@ -34,6 +34,11 @@ public class CacheUtils {
         return state;
     }
 
+    public static String getUserToken(Context context,String key){
+        String lang = getSharedPreferences(context).getString(key, null);
+        return lang;
+    }
+
     public static String getUserLanguage(Context context,String key){
         Configuration config = context.getResources().getConfiguration();
         String lang = getSharedPreferences(context).getString(key, config.locale.getLanguage());

@@ -11,14 +11,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import smile.khaled.mohamed.rehab.R;
+import smile.khaled.mohamed.rehab.service.responses.both.allmessges.DataItem;
 import smile.khaled.mohamed.rehab.views.fragment.Favourite;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
 
-    private List<Favourite> recentList;
+    private List<DataItem> recentList;
     private Context context;
     //    private ICategoryHandler handler;
-    public MessagesAdapter(Context context, List<Favourite> recentList) {
+    public MessagesAdapter(Context context, List<DataItem> recentList) {
         this.recentList = recentList;
         this.context=context;
 //        handler=(ICategoryHandler)context;
@@ -34,31 +35,24 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MessagesAdapter.MyViewHolder holder, final int position) {
-//        final Favourite price = recentList.get(position);
-//        holder.views.setText(price.getViews());
-//        Picasso.with(context).load(price.getPhoto()).into(holder.photo);
-//
-//        holder.photo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handler.onClickItem(price.getId());
-//            }
-//        });
+        DataItem item=recentList.get(position);
+        holder.name.setText(item.getSenderName());
+        holder.time.setText(item.getCreatedAt());
     }
 
     @Override
     public int getItemCount() {
-        return 25;
+        return recentList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView views;
-        public ImageView photo;
+        public TextView time;
+        public TextView name;
 
         public MyViewHolder(View view) {
             super(view);
-//            views = view.findViewById(R.id.num_view);
-//            photo=view.findViewById(R.id.item_bg);
+            time=view.findViewById(R.id.message_time);
+            name=view.findViewById(R.id.message_name);
         }
     }
 

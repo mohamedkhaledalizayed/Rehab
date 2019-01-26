@@ -37,6 +37,7 @@ import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.databinding.ActivityDoctorSignUpBinding;
 import smile.khaled.mohamed.rehab.service.responses.PictureProperities;
+import smile.khaled.mohamed.rehab.service.responses.both.registeruser.ReigsterUserResponse;
 import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.utils.FileUtils;
 import smile.khaled.mohamed.rehab.utils.ValidateUtils;
@@ -67,72 +68,16 @@ public class DoctorSignUpActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_doctor_sign_up);
 
-
-
         username = getIntent().getStringExtra("username");
         phone = getIntent().getStringExtra("phone");
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
 
-        setCitySpinner(getGenderNames(this));
-        setGenderSpinner(getGenderNames(this));
-        setDistricSpinner(getGenderNames(this));
-        setNationalitySpinner(getGenderNames(this));
-        setSpecSpinner(getGenderNames(this));
+
     }
 
-    public void setCitySpinner(List<String> list){
-        SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_DARCK);
-        binding.citySpinner.setAdapter(adapter);
-    }
 
-    public void setGenderSpinner(List<String> list){
-        SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_DARCK);
-        binding.genderSpinner.setAdapter(adapter);
-    }
 
-    public void setDistricSpinner(List<String> list){
-        SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_DARCK);
-        binding.districSpinner.setAdapter(adapter);
-    }
-
-    public void setNationalitySpinner(List<String> list){
-        SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_DARCK);
-        binding.natSpinner.setAdapter(adapter);
-    }
-
-    public void setSpecSpinner(List<String> list){
-        SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_DARCK);
-        binding.specSpinner.setAdapter(adapter);
-    }
-
-    public static List<String> getGenderNames(Context context) {
-        String[] genderArray = context.getResources().getStringArray(R.array.city_names);
-        final List<String> genders = new ArrayList<>(genderArray.length*3);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-        genders.add(genderArray[0]);
-        genders.add(genderArray[1]);
-        genders.add(genderArray[2]);
-        genders.add(genderArray[3]);
-        genders.add(genderArray[4]);
-        genders.add(genderArray[5]);
-        genders.add(genderArray[6]);
-
-        return genders;
-    }
 
     public void next(View view) {
 
@@ -201,17 +146,26 @@ public class DoctorSignUpActivity extends BaseActivity {
             }
         }
 
-        service.signUpDoctorApi(nameBody,usernameBody,passwordBody,genderBody,mobileBody,emailBody,cityBody,neighborhoodBody,parts).enqueue(new Callback<ResponseBody>() {
+        service.signUpDoctorApi(nameBody,usernameBody,passwordBody,
+                genderBody,mobileBody,emailBody,cityBody,neighborhoodBody,parts)
+                .enqueue(new Callback<ReigsterUserResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                AppUtils.showSuccessToast(DoctorSignUpActivity.this,"Done");
-                Intent intent = new Intent(DoctorSignUpActivity.this,DoctorHomeActivity.class);
-                startActivity(intent);
-                finish();
+            public void onResponse(Call<ReigsterUserResponse> call, Response<ReigsterUserResponse> response) {
+                if (response.body().getStatus().equals("201")){
+                    Intent intent =new Intent(DoctorSignUpActivity.this,ActivateAccountActivity.class);
+                    intent.putExtra("token",response.body().getData().getToken());
+                    intent.putExtra(ACCOUNT_TYPE,DOCTOR_ACCOUNT);
+                    startActivity(intent);
+                    finish();
+                }else if (response.body().getStatus().equals("400")){
+                    AppUtils.showInfoToast(DoctorSignUpActivity.this,"User registered before");
+                }else {
+                    AppUtils.showInfoToast(DoctorSignUpActivity.this,"Check Your Data");
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ReigsterUserResponse> call, Throwable t) {
                 Log.e("error",t.getMessage());
                 AppUtils.showErrorToast(DoctorSignUpActivity.this,t.getMessage());
             }

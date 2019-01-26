@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,24 +23,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.app.Rehab;
+import smile.khaled.mohamed.rehab.data.CacheUtils;
+import smile.khaled.mohamed.rehab.service.requests.patient.DoctorFilter;
+import smile.khaled.mohamed.rehab.service.responses.patient.AddFavouriteResponse;
+import smile.khaled.mohamed.rehab.service.responses.patient.DeleteFavouriteResponse;
+import smile.khaled.mohamed.rehab.service.responses.patient.doctorfilter.DataItem;
+import smile.khaled.mohamed.rehab.service.responses.patient.doctorfilter.DoctorFilterResponse;
+import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.views.adapter.PatientSearchResultAdapter;
+import smile.khaled.mohamed.rehab.views.fragment.BaseFragment;
 import smile.khaled.mohamed.rehab.views.fragment.Favourite;
 
 import static smile.khaled.mohamed.rehab.data.Constants.CUSTOM_ERROR;
+import static smile.khaled.mohamed.rehab.data.Constants.CUSTOM_NO_DATA;
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_ID;
 import static smile.khaled.mohamed.rehab.data.Constants.FILTER_DOCTORS_BY_CITY;
 import static smile.khaled.mohamed.rehab.data.Constants.FILTER_DOCTORS_BY_DESTRIC;
 import static smile.khaled.mohamed.rehab.data.Constants.FILTER_DOCTORS_BY_GENDER;
 import static smile.khaled.mohamed.rehab.data.Constants.FILTER_DOCTORS_BY_NATIONALTY;
 import static smile.khaled.mohamed.rehab.data.Constants.FILTER_DOCTORS_BY_SPECIALTY;
+import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_DATA;
 
-public class SearchResultActivity extends AppCompatActivity implements ISearchResultHandler {
+public class SearchResultActivity extends BaseActivity implements ISearchResultHandler {
 
 
     private PatientSearchResultAdapter mAdapter;
     private RecyclerView recyclerView;
-    private List<Favourite> recentList = new ArrayList<>();
+    private List<DataItem> recentList = new ArrayList<>();
     private Map<String,String> map = new HashMap<>();
 
     @Override
@@ -47,64 +62,120 @@ public class SearchResultActivity extends AppCompatActivity implements ISearchRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         recyclerView=findViewById(R.id.category_recycler);
-        map.put("",getIntent().getStringExtra(FILTER_DOCTORS_BY_SPECIALTY));
-        map.put("",getIntent().getStringExtra(FILTER_DOCTORS_BY_CITY));
-        map.put("",getIntent().getStringExtra(FILTER_DOCTORS_BY_DESTRIC));
-        map.put("",getIntent().getStringExtra(FILTER_DOCTORS_BY_GENDER));
-        map.put("",getIntent().getStringExtra(FILTER_DOCTORS_BY_NATIONALTY));
+        map.put("city",getIntent().getStringExtra(FILTER_DOCTORS_BY_SPECIALTY));
+        map.put("nationality",getIntent().getStringExtra(FILTER_DOCTORS_BY_CITY));
+        map.put("neighborhood",getIntent().getStringExtra(FILTER_DOCTORS_BY_DESTRIC));
+        map.put("specialty",getIntent().getStringExtra(FILTER_DOCTORS_BY_GENDER));
+        map.put("gender",getIntent().getStringExtra(FILTER_DOCTORS_BY_NATIONALTY));
+        map.put("token",CacheUtils.getUserToken(this,PATIENT_DATA));
 
-        StateExecuterKt.setState(recyclerView, StatesConstants.LOADING_STATE);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                add();
-            }
-        },3000);
+
         mAdapter = new PatientSearchResultAdapter(this,recentList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-//
-//        View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
-//        Button errorBt = v.findViewById(R.id.textButton);
-
-
+        loadResult();
     }
 
-    public void add(){
-        StateExecuterKt.setState(recyclerView, StatesConstants.NORMAL_STATE);
+    private void loadResult() {
+        StateExecuterKt.setState(recyclerView, StatesConstants.LOADING_STATE);
 
-        Favourite favourite=new Favourite("mohamed","https://api.androidhive.info/images/nature/david.jpg");
-        recentList.add(favourite);
+        service.doctorFilter(map).enqueue(new Callback<DoctorFilterResponse>() {
+            @Override
+            public void onResponse(Call<DoctorFilterResponse> call, Response<DoctorFilterResponse> response) {
+                StateExecuterKt.setState(recyclerView, StatesConstants.NORMAL_STATE);
 
-        favourite=new Favourite("Ahmed","https://api.androidhive.info/images/nature/david.jpg");
-        recentList.add(favourite);
+                if (response.body().getStatus().equals("200") && response.body().getData().size()!=0){
+                    recentList.addAll(response.body().getData());
+                    mAdapter.notifyDataSetChanged();
+                }else if (response.body().getData().size()==0){
+                    StateExecuterKt.setState(recyclerView, CUSTOM_NO_DATA);
+                }else {
+                    View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
+                    Button errorBt = v.findViewById(R.id.retryBt);
+                    errorBt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            loadResult();
+                        }
+                    });
+                }
+            }
 
-        favourite=new Favourite("Mahmoud","https://api.androidhive.info/images/nature/david.jpg");
-        recentList.add(favourite);
-
-        favourite=new Favourite("Ayman","https://api.androidhive.info/images/nature/david.jpg");
-        recentList.add(favourite);
-
-        favourite=new Favourite("Taher","https://api.androidhive.info/images/nature/david.jpg");
-        recentList.add(favourite);
+            @Override
+            public void onFailure(Call<DoctorFilterResponse> call, Throwable t) {
+                Log.e("RRRRRRRR",t.getMessage());
+                View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
+                Button errorBt = v.findViewById(R.id.retryBt);
+                errorBt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        loadResult();
+                    }
+                });
+            }
+        });
     }
-
 
     @Override
-    public void onResevationClick(int id) {
-        startActivity(new Intent(SearchResultActivity.this,ReservationActivity.class));
+    public void onResevationClick(String id) {
+        Intent intent = new Intent(SearchResultActivity.this,ReservationActivity.class);
+        intent.putExtra(DOCTOR_ID,id);
+        startActivity(intent);
     }
 
     @Override
-    public void onShareClick(int id) {
+    public void onShareClick(String id) {
 
     }
 
     @Override
-    public void onFavouriteClick(int id) {
+    public void addFavourite(String id) {
 
+        Map<String,String> map=new HashMap<String,String>();
+        map.put("token",CacheUtils.getUserToken(this,PATIENT_DATA));
+        map.put("type","set");
+        map.put("doctor_id",id);
+        service.addFavourites(map).enqueue(new Callback<AddFavouriteResponse>() {
+            @Override
+            public void onResponse(Call<AddFavouriteResponse> call, Response<AddFavouriteResponse> response) {
+                if (response.body().getStatus().equals("200")){
+                    AppUtils.showSuccessToast(SearchResultActivity.this,"Successfully Added");
+                }else {
+                    AppUtils.showErrorToast(SearchResultActivity.this,"Not Added");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddFavouriteResponse> call, Throwable t) {
+                AppUtils.showErrorToast(SearchResultActivity.this,"Not Added");
+            }
+        });
+    }
+
+    @Override
+    public void deleteFavourite(String id) {
+        Map<String,String> map= new HashMap<>();
+        map.put("type","del");
+        map.put("token",CacheUtils.getUserToken(this,PATIENT_DATA));
+        map.put("doctor_id",id);
+
+        service.deleteFavourites(map).enqueue(new Callback<DeleteFavouriteResponse>() {
+            @Override
+            public void onResponse(Call<DeleteFavouriteResponse> call, Response<DeleteFavouriteResponse> response) {
+                if (response.body().getStatus().equals("200")){
+                    AppUtils.showSuccessToast(SearchResultActivity.this,"Successfully Deleted");
+                }else {
+                    AppUtils.showErrorToast(SearchResultActivity.this,"Not Deleted");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteFavouriteResponse> call, Throwable t) {
+                AppUtils.showErrorToast(SearchResultActivity.this,"Not Deleted");
+            }
+        });
     }
 }

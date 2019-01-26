@@ -41,6 +41,7 @@ public class AccountTypeActivity extends AppCompatActivity {
             Intent intent=new Intent(this,SignUpActivity.class);
             intent.putExtra(ACCOUNT_TYPE,accountType);
             startActivity(intent);
+            finish();
         }else {
             AppUtils.showInfoToast(this,getString(R.string.sgin_in_toast_select_user_type));
         }

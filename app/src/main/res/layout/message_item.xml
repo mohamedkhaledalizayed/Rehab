@@ -28,7 +28,7 @@
         android:text="محمد خالد على"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:id="@+id/chat_head"
+        android:id="@+id/message_name"
         />
 
 

@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/state_some_thing_went_wrong"
+        android:text="No Data Founded"
         android:layout_marginTop="@dimen/_5sdp"
         />
     <Button

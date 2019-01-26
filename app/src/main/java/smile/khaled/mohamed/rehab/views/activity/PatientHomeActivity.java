@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -26,22 +29,35 @@ import com.bestsoft32.tt_fancy_gif_dialog_lib.TTFancyGifDialogListener;
 import com.google.gson.Gson;
 import com.roger.catloadinglibrary.CatLoadingView;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.data.CacheUtils;
+import smile.khaled.mohamed.rehab.service.responses.IFavouriteDeleteHandler;
 import smile.khaled.mohamed.rehab.service.responses.both.signin.Data;
+import smile.khaled.mohamed.rehab.service.responses.patient.DeleteDateResponse;
+import smile.khaled.mohamed.rehab.service.responses.patient.DeleteFavouriteResponse;
 import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.utils.CustomTypefaceSpan;
 import smile.khaled.mohamed.rehab.views.activity.both.AboutUsActivity;
 import smile.khaled.mohamed.rehab.views.activity.both.MessagesActivity;
 import smile.khaled.mohamed.rehab.views.activity.both.SignInActivity;
 import smile.khaled.mohamed.rehab.views.activity.both.TermsActivity;
+import smile.khaled.mohamed.rehab.views.dialog.patient.SendMessageDialog;
+import smile.khaled.mohamed.rehab.views.fragment.IFavouriteHandler;
+import smile.khaled.mohamed.rehab.views.fragment.IPatientDateHandler;
 import smile.khaled.mohamed.rehab.views.fragment.PatientDatesFragment;
 import smile.khaled.mohamed.rehab.views.fragment.PatientFavouriteFragment;
 import smile.khaled.mohamed.rehab.views.fragment.PatientSearchFragment;
 
 import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_DATA;
 
-public class PatientHomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PatientHomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
+        IFavouriteHandler,IPatientDateHandler {
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -73,6 +89,7 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+
 
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Cairo-Regular.ttf");
@@ -127,7 +144,9 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
             AppUtils.applyFontToMenuItem(this,mi);
         }
         Gson gson=new Gson();
-        AppUtils.showSuccessToast(this,gson.fromJson(CacheUtils.getPatientData(this,PATIENT_DATA),Data.class).getMobile());
+        AppUtils.showSuccessToast(this,CacheUtils.getUserToken(this,PATIENT_DATA));
+
+        Log.e("token",CacheUtils.getUserToken(this,PATIENT_DATA));
     }
 
 
@@ -205,5 +224,66 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
                     }
                 })
                 .build();
+    }
+
+    @Override
+    public void onClick(String id) {
+        Map<String,String> map= new HashMap<>();
+        map.put("type","del");
+        map.put("token",CacheUtils.getUserToken(this,PATIENT_DATA));
+        map.put("doctor_id",id);
+
+        service.deleteFavourites(map).enqueue(new Callback<DeleteFavouriteResponse>() {
+            @Override
+            public void onResponse(Call<DeleteFavouriteResponse> call, Response<DeleteFavouriteResponse> response) {
+                if (response.body().getStatus().equals("200")){
+                    AppUtils.showSuccessToast(PatientHomeActivity.this,"Successfully Deleted");
+                }else {
+                    AppUtils.showErrorToast(PatientHomeActivity.this,"Not Deleted");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteFavouriteResponse> call, Throwable t) {
+                AppUtils.showErrorToast(PatientHomeActivity.this,"Not Deleted");
+            }
+        });
+
+    }
+
+    @Override
+    public void onClickCanceled(String id) {
+
+        Map<String,String> map= new HashMap<>();
+        map.put("type","del");
+        map.put("id",id);
+        service.deteteDate(map).enqueue(new Callback<DeleteDateResponse>() {
+            @Override
+            public void onResponse(Call<DeleteDateResponse> call, Response<DeleteDateResponse> response) {
+                if (response.body().getStatus().equals("200")){
+                    AppUtils.showSuccessToast(PatientHomeActivity.this,"Successfully Deleted");
+                }else {
+                    AppUtils.showErrorToast(PatientHomeActivity.this,"Not Deleted");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteDateResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClickMessage(String id) {
+        FragmentManager fm = getSupportFragmentManager();
+        SendMessageDialog editNameDialogFragment = SendMessageDialog.newInstance("");
+        editNameDialogFragment.show(fm, "Confirm Reservation Dialog");
+        editNameDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+    }
+
+    @Override
+    public void onClickCall(String number) {
+        AppUtils.call(this,number);
     }
 }

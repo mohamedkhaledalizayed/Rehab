@@ -15,6 +15,7 @@
         android:layout_height="@dimen/_35sdp"
         style="@style/Widget.MaterialRatingBar.RatingBar"
         android:numStars="5"
+        android:id="@+id/rate_bar"
         app:mrb_fillBackgroundStars="true"
         app:mrb_progressTint="#ffc400"
         android:layout_margin="@dimen/_15sdp"
@@ -29,6 +30,7 @@
         foo:customFont="fonts/Cairo-Regular.ttf"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_80sdp"
+        android:id="@+id/note"
         android:layout_margin="@dimen/_15sdp"
         android:inputType="textMultiLine"
         android:background="@drawable/review_edit_text_bg"/>
@@ -42,6 +44,7 @@
         android:text="قيم"
         android:textColor="#fff"
         android:textStyle="bold"
+        android:id="@+id/rate_doctor"
         android:textSize="18sp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_15sdp"

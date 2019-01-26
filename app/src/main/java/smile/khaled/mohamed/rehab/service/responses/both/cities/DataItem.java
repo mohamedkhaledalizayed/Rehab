@@ -4,11 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class DataItem{
 
-	@SerializedName("name_fr")
-	private String nameFr;
-
-	@SerializedName("name_ar")
-	private String nameAr;
+	@SerializedName("city_name")
+	private String cityName;
 
 	@SerializedName("id")
 	private String id;
@@ -16,26 +13,12 @@ public class DataItem{
 	@SerializedName("nationality_name")
 	private String nationalityName;
 
-	@SerializedName("country_id")
-	private String countryId;
-
-	@SerializedName("name_en")
-	private String nameEn;
-
-	public void setNameFr(String nameFr){
-		this.nameFr = nameFr;
+	public void setCityName(String cityName){
+		this.cityName = cityName;
 	}
 
-	public String getNameFr(){
-		return nameFr;
-	}
-
-	public void setNameAr(String nameAr){
-		this.nameAr = nameAr;
-	}
-
-	public String getNameAr(){
-		return nameAr;
+	public String getCityName(){
+		return cityName;
 	}
 
 	public void setId(String id){
@@ -54,32 +37,13 @@ public class DataItem{
 		return nationalityName;
 	}
 
-	public void setCountryId(String countryId){
-		this.countryId = countryId;
-	}
-
-	public String getCountryId(){
-		return countryId;
-	}
-
-	public void setNameEn(String nameEn){
-		this.nameEn = nameEn;
-	}
-
-	public String getNameEn(){
-		return nameEn;
-	}
-
 	@Override
  	public String toString(){
 		return 
 			"DataItem{" + 
-			"name_fr = '" + nameFr + '\'' + 
-			",name_ar = '" + nameAr + '\'' + 
+			"city_name = '" + cityName + '\'' + 
 			",id = '" + id + '\'' + 
 			",nationality_name = '" + nationalityName + '\'' + 
-			",country_id = '" + countryId + '\'' + 
-			",name_en = '" + nameEn + '\'' + 
 			"}";
 		}
 }

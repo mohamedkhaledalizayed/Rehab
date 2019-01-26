@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="review"
+            type="smile.khaled.mohamed.rehab.service.responses.patient.reviews.DataItem"/>
+    </data>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,7 +26,7 @@
             foo:customFont="fonts/Cairo-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اسم المستخدم"
+            android:text="@{review.userId}"
             android:textColor="#000"
             android:textSize="@dimen/_15ssp"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -31,7 +36,7 @@
             foo:customFont="fonts/Cairo-Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12 مارس 2016"
+            android:text="@{review.createdAt}"
             android:textSize="@dimen/_10ssp"
             android:textColor="#6b6b6b"
             android:layout_gravity="center_vertical"
@@ -47,7 +52,7 @@
         android:layout_height="@dimen/_15sdp"
         style="@style/Widget.MaterialRatingBar.RatingBar"
         android:numStars="5"
-        android:rating="4"
+        android:id="@+id/rate_bar"
         android:isIndicator="true"
         app:mrb_fillBackgroundStars="true"
         app:mrb_progressTint="#ffc400"
@@ -63,7 +68,7 @@
         foo:customFont="fonts/Cairo-Regular.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The star border icon is drawn with the help of Inkscape, by downloading the star icon SVG from Material Icons, duplicating the outer border path of the star, setting a stroke of 4dp, running stroke to path on it."
+        android:text="@{review.note}"
         android:textAlignment="center"
         android:textColor="#000"
         android:padding="@dimen/_5sdp"

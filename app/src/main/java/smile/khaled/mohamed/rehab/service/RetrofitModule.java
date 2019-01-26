@@ -58,7 +58,7 @@ public class RetrofitModule {
     void provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE);
-        gson = gsonBuilder.create();
+        gson = gsonBuilder.setLenient().create();
     }
     void provideOkhttpClient(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

@@ -36,6 +36,8 @@ import smile.khaled.mohamed.rehab.views.fragment.DoctorAddDateFragment;
 import smile.khaled.mohamed.rehab.views.fragment.DoctorDatesFragment;
 import smile.khaled.mohamed.rehab.views.fragment.DoctorProfileFragment;
 
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_DATA;
+
 
 public class DoctorHomeActivity extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -65,6 +67,7 @@ public class DoctorHomeActivity extends BaseActivity  implements NavigationView.
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        AppUtils.showSuccessToast(this,CacheUtils.getUserToken(this,DOCTOR_DATA));
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
