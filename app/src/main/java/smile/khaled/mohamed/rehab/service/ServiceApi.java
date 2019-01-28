@@ -5,16 +5,13 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import smile.khaled.mohamed.rehab.service.requests.both.SignInData;
-import smile.khaled.mohamed.rehab.service.requests.patient.DoctorFilter;
 import smile.khaled.mohamed.rehab.service.responses.EvaluationResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.activateaccount.ActivateAccountResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.allmessges.AllMessagesResponse;
@@ -25,8 +22,11 @@ import smile.khaled.mohamed.rehab.service.responses.both.nationality.Nationality
 import smile.khaled.mohamed.rehab.service.responses.both.neighborhood.NeighborhoodResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.registeruser.ReigsterUserResponse;
 import smile.khaled.mohamed.rehab.service.responses.both.signin.SignInResponse;
-import smile.khaled.mohamed.rehab.service.responses.both.signupuser.Response;
 import smile.khaled.mohamed.rehab.service.responses.both.specialty.SpecialtyResponse;
+import smile.khaled.mohamed.rehab.service.responses.doctor.addnewdate.AddDateResponse;
+import smile.khaled.mohamed.rehab.service.responses.doctor.doctorprofile.DoctorProfileResponse;
+import smile.khaled.mohamed.rehab.service.responses.patient.reservation.DoctorDateResponse;
+import smile.khaled.mohamed.rehab.service.responses.doctor.getalldates.AllDatesResponse;
 import smile.khaled.mohamed.rehab.service.responses.patient.AddFavouriteResponse;
 import smile.khaled.mohamed.rehab.service.responses.patient.DeleteDateResponse;
 import smile.khaled.mohamed.rehab.service.responses.patient.DeleteFavouriteResponse;
@@ -57,14 +57,28 @@ public interface ServiceApi {
     @POST("register-doctor.php")
     @Multipart
     Call<ReigsterUserResponse> signUpDoctorApi(@Part("name") RequestBody name,
-                                       @Part("username") RequestBody username,
-                                       @Part("password") RequestBody password,
-                                       @Part("gender") RequestBody gender,
-                                       @Part("mobile") RequestBody mobile,
-                                       @Part("email") RequestBody email,
-                                       @Part("city") RequestBody city,
-                                       @Part("neighborhood") RequestBody neighborhood,
-                                       @Part List<MultipartBody.Part> files);
+                                               @Part("username") RequestBody username,
+                                               @Part("password") RequestBody password,
+                                               @Part("gender") RequestBody gender,
+                                               @Part("mobile") RequestBody mobile,
+                                               @Part("email") RequestBody email,
+                                               @Part("city") RequestBody city,
+                                               @Part("neighborhood") RequestBody neighborhood,
+                                               @Part List<MultipartBody.Part> files);
+
+    @POST("patient_reservation")
+    @Multipart
+    Call<DoctorDateResponse> makeReservation(@Part("type") RequestBody type,
+                                             @Part("token") RequestBody token,
+                                             @Part("doctor_id") RequestBody doctor_id,
+                                             @Part("resdate") RequestBody resdate,
+                                             @Part("restime") RequestBody restime,
+                                             @Part("note") RequestBody note,
+                                             @Part("lat") RequestBody lat,
+                                             @Part("lon") RequestBody lon,
+                                             @Part("address") RequestBody address,
+                                             @Part("schedule_id") RequestBody schedule_id,
+                                             @Part MultipartBody.Part image);
 
     @POST("cities.php")
     Call<CityResponse> cityApi();
@@ -108,6 +122,10 @@ public interface ServiceApi {
     @FormUrlEncoded
     Call<DeleteDateResponse> deteteDate(@FieldMap Map<String,String> map);
 
+    @POST("patient_reservation")
+    @FormUrlEncoded
+    Call<DeleteDateResponse> reservationDate(@FieldMap Map<String,String> map);
+
     @POST("evaluation")
     @FormUrlEncoded
     Call<EvaluationResponse> setRateForDoctor(@FieldMap Map<String,String> map);
@@ -123,4 +141,16 @@ public interface ServiceApi {
     @POST("doctor")
     @FormUrlEncoded
     Call<DoctorDataResponse> getDoctorData(@FieldMap Map<String,String> map);
+
+    @POST("custom_schedule")
+    @FormUrlEncoded
+    Call<AddDateResponse> addNewDate(@FieldMap Map<String,String> map);
+
+    @POST("custom_schedule")
+    @FormUrlEncoded
+    Call<AllDatesResponse> getAllDates(@FieldMap Map<String,String> map);
+
+    @POST("doctor")
+    @FormUrlEncoded
+    Call<DoctorProfileResponse> getDoctorProfileData(@Field("token2") String token);
 }

@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_36sdp"
         android:background="@drawable/signin_bg_btn"
-        android:text="قيم"
+        android:text="@string/rate"
         android:textColor="#fff"
         android:textStyle="bold"
         android:id="@+id/rate_doctor"

@@ -26,6 +26,9 @@ import android.widget.Toast;
 
 import com.bestsoft32.tt_fancy_gif_dialog_lib.TTFancyGifDialog;
 import com.bestsoft32.tt_fancy_gif_dialog_lib.TTFancyGifDialogListener;
+import com.gdacciaro.iOSDialog.iOSDialog;
+import com.gdacciaro.iOSDialog.iOSDialogBuilder;
+import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.google.gson.Gson;
 import com.roger.catloadinglibrary.CatLoadingView;
 
@@ -152,9 +155,9 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PatientSearchFragment(), "احجز الطبيب");
-        adapter.addFragment(new PatientFavouriteFragment(), "المفضلة");
-        adapter.addFragment(new PatientDatesFragment(), "مواعيدى");
+        adapter.addFragment(new PatientSearchFragment(), getString(R.string.reservation_doctor));
+        adapter.addFragment(new PatientFavouriteFragment(), getString(R.string.favourites));
+        adapter.addFragment(new PatientDatesFragment(), getString(R.string.my_dates));
         viewPager.setAdapter(adapter);
     }
 
@@ -200,30 +203,28 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
     }
 
     private void logout(){
-        new TTFancyGifDialog.Builder(this)
+        new iOSDialogBuilder(this)
                 .setTitle("Logout")
-                .setMessage("Do You Want To Exit!")
-                .setPositiveBtnText("Ok")
-                .setPositiveBtnBackground("#22b573")
-                .setNegativeBtnText("Cancel")
-                .setNegativeBtnBackground("#c1272d")
-                .setGifResource(R.drawable.ic_undraw_loading_frh4)      //pass your gif, png or jpg
-                .isCancellable(true)
-                .OnPositiveClicked(new TTFancyGifDialogListener() {
+                .setSubtitle("Do You Want To Exit!")
+                .setBoldPositiveLabel(true)
+                .setCancelable(false)
+                .setPositiveListener(getString(R.string.ok),new iOSDialogClickListener() {
                     @Override
-                    public void OnClick() {
+                    public void onClick(iOSDialog dialog) {
                         CacheUtils.clearCache(PatientHomeActivity.this);
                         startActivity(new Intent(PatientHomeActivity.this,SignInActivity.class));
                         finish();
-                    }
-                })
-                .OnNegativeClicked(new TTFancyGifDialogListener() {
-                    @Override
-                    public void OnClick() {
+                        dialog.dismiss();
 
                     }
                 })
-                .build();
+                .setNegativeListener(getString(R.string.cancel), new iOSDialogClickListener() {
+                    @Override
+                    public void onClick(iOSDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build().show();
     }
 
     @Override
@@ -269,7 +270,7 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
 
             @Override
             public void onFailure(Call<DeleteDateResponse> call, Throwable t) {
-
+                AppUtils.showErrorToast(PatientHomeActivity.this,"Not Deleted");
             }
         });
     }
@@ -277,7 +278,7 @@ public class PatientHomeActivity extends BaseActivity implements NavigationView.
     @Override
     public void onClickMessage(String id) {
         FragmentManager fm = getSupportFragmentManager();
-        SendMessageDialog editNameDialogFragment = SendMessageDialog.newInstance("");
+        SendMessageDialog editNameDialogFragment = SendMessageDialog.newInstance(id,"0");
         editNameDialogFragment.show(fm, "Confirm Reservation Dialog");
         editNameDialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
     }

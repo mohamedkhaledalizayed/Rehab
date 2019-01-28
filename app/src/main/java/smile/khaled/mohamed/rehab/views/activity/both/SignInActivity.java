@@ -135,9 +135,9 @@ public class SignInActivity extends BaseActivity {
                     CacheUtils.getSharedPreferences(SignInActivity.this).edit().putString(USER_TYPE, DOCTOR).apply();
                     startActivity(new Intent(SignInActivity.this,DoctorHomeActivity.class));
                     finish();
-                }else if (response.code()==401){
+                }else if (response.code()==400){
                     AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");
-                }else if (response.code()==2){
+                }else if (response.code()==401){
                     validate();
                 }else {
                     AppUtils.showErrorToast(SignInActivity.this,"Check Your Data");

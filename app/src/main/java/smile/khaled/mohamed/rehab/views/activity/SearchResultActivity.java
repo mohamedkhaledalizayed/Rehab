@@ -2,12 +2,14 @@ package smile.khaled.mohamed.rehab.views.activity;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import smile.khaled.mohamed.rehab.views.adapter.PatientSearchResultAdapter;
 import smile.khaled.mohamed.rehab.views.fragment.BaseFragment;
 import smile.khaled.mohamed.rehab.views.fragment.Favourite;
 
+import static smile.khaled.mohamed.rehab.data.Constants.BASE_URL;
 import static smile.khaled.mohamed.rehab.data.Constants.CUSTOM_ERROR;
 import static smile.khaled.mohamed.rehab.data.Constants.CUSTOM_NO_DATA;
 import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_ID;
@@ -61,6 +64,9 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultH
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.search);
         recyclerView=findViewById(R.id.category_recycler);
         map.put("city",getIntent().getStringExtra(FILTER_DOCTORS_BY_SPECIALTY));
         map.put("nationality",getIntent().getStringExtra(FILTER_DOCTORS_BY_CITY));
@@ -88,35 +94,41 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultH
                 StateExecuterKt.setState(recyclerView, StatesConstants.NORMAL_STATE);
 
                 if (response.body().getStatus().equals("200") && response.body().getData().size()!=0){
+                    recentList.clear();
                     recentList.addAll(response.body().getData());
                     mAdapter.notifyDataSetChanged();
                 }else if (response.body().getData().size()==0){
                     StateExecuterKt.setState(recyclerView, CUSTOM_NO_DATA);
                 }else {
-                    View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
-                    Button errorBt = v.findViewById(R.id.retryBt);
-                    errorBt.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            loadResult();
-                        }
-                    });
+                    error();
                 }
             }
 
             @Override
             public void onFailure(Call<DoctorFilterResponse> call, Throwable t) {
                 Log.e("RRRRRRRR",t.getMessage());
-                View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
-                Button errorBt = v.findViewById(R.id.retryBt);
-                errorBt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        loadResult();
-                    }
-                });
+                error();
             }
         });
+    }
+
+    private void error() {
+        View v= StateExecuterKt.setState(recyclerView, CUSTOM_ERROR);
+        Button errorBt = v.findViewById(R.id.retryBt);
+        errorBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadResult();
+            }
+        });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -128,7 +140,12 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultH
 
     @Override
     public void onShareClick(String id) {
-
+        String url = BASE_URL + "share/" + id +"/en";
+        ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setChooserTitle("Share...")
+                .setText(url)
+                .startChooser();
     }
 
     @Override

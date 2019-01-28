@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
     tools:context=".views.activity.both.MessagesActivity">
 
 
@@ -24,10 +25,11 @@
             android:background="@color/colorPrimary"
             >
 
-            <TextView
+            <smile.khaled.mohamed.rehab.utils.CustomTextView
+                foo:customFont="fonts/Cairo-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="الرسائل"
+                android:text="@string/messages"
                 android:id="@+id/title"
                 android:textSize="@dimen/_18ssp"
                 android:textStyle="bold"

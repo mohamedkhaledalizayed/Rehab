@@ -1,5 +1,5 @@
 <resources>
-    <string name="api_key">AIzaSyA2addBq-6htPj_gXa1W6lebUui8kd2Vus</string>
+    <string name="api_key"></string>
     <string name="app_name">Rehab</string>
     <string name="enable_gps_message">Please enable GPS in high accuracy mode to get your location</string>
     <string name="ok">OK</string>
@@ -40,4 +40,16 @@
     <string name="_300_reviews"><![CDATA[
 <u>(300 تقيمات)</u>
     ]]></string>
+    <string name="messages">الرسائل</string>
+    <string name="reviews">Reviews</string>
+    <string name="search">Search</string>
+    <string name="all_spec">كل التخصصات</string>
+    <string name="select_city">اختار المدينة</string>
+    <string name="select_nationality">اختار الجنسية</string>
+    <string name="select_neighborhood">اختار الحى</string>
+    <string name="reservation_doctor">احجز الطبيب</string>
+    <string name="favourites">المفضلة</string>
+    <string name="my_dates">مواعيدى</string>
+    <string name="reservation_">حجز</string>
+    <string name="rate">قيم</string>
 </resources>

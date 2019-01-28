@@ -108,6 +108,8 @@ public class PatientFavouriteFragment extends BaseFragment {
                     recentList.clear();
                     recentList.addAll(response.body().getData());
                     mAdapter.notifyDataSetChanged();
+                }else {
+                    error();
                 }
 
             }
@@ -115,14 +117,18 @@ public class PatientFavouriteFragment extends BaseFragment {
             @Override
             public void onFailure(Call<FavouriteResponse> call, Throwable t) {
                 Log.e("oooooo",t.getMessage());
-                View v= StateExecuterKt.setState(recyclerView, StatesConstants.ERROR_STATE);
-                Button errorBt = v.findViewById(R.id.textButton);
-                errorBt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        loadFavourites();
-                    }
-                });
+                error();
+            }
+        });
+    }
+
+    private void error() {
+        View v= StateExecuterKt.setState(recyclerView, StatesConstants.ERROR_STATE);
+        Button errorBt = v.findViewById(R.id.textButton);
+        errorBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFavourites();
             }
         });
     }

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +16,33 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import smile.khaled.mohamed.rehab.R;
+import smile.khaled.mohamed.rehab.data.CacheUtils;
+import smile.khaled.mohamed.rehab.service.responses.doctor.addnewdate.AddDateResponse;
+import smile.khaled.mohamed.rehab.utils.AppUtils;
 import smile.khaled.mohamed.rehab.views.activity.SearchResultActivity;
+
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_DATA;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DoctorAddDateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DoctorAddDateFragment extends Fragment {
+public class DoctorAddDateFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private String dateOfDay;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -83,6 +95,7 @@ public class DoctorAddDateFragment extends Fragment {
 
 
         c = Calendar.getInstance();
+        dateOfDay=c.get(Calendar.YEAR)+"-"+c.get(Calendar.MONTH)+1+"-"+c.get(Calendar.DAY_OF_MONTH);
 
         view.findViewById(R.id.time).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,15 +107,17 @@ public class DoctorAddDateFragment extends Fragment {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                if (sHour>12){
-                                    textView.setText(sHour-12 + ":" + sMinute+":PM");
-                                }else if (sHour==12){
-                                    textView.setText(sHour + ":" + sMinute+":PM");
-                                }else if (sHour==0){
-                                    textView.setText(sHour + ":" + sMinute+":AM");
-                                }else {
-                                    textView.setText(sHour + ":" + sMinute+":AM");
-                                }
+//                                if (sHour>12){
+//                                    textView.setText(sHour-12 + ":" + sMinute+":PM");
+//                                }else if (sHour==12){
+//                                    textView.setText(sHour + ":" + sMinute+":PM");
+//                                }else if (sHour==0){
+//                                    textView.setText(sHour + ":" + sMinute+":AM");
+//                                }else {
+//                                    textView.setText(sHour + ":" + sMinute+":AM");
+//                                }
+
+                                addNewDate(dateOfDay,sHour+":"+sMinute+":"+"00");
 
                             }
                         }, hour, minutes, false);
@@ -115,7 +130,7 @@ public class DoctorAddDateFragment extends Fragment {
         String dateStr = format.format(now);
         textView.setText(dateStr);
 
-
+        Log.e("Date",dateOfDay);
         c.setTime(now);
 
 
@@ -141,6 +156,32 @@ public class DoctorAddDateFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void addNewDate(String dateOfDay, String time) {
+
+        Map<String,String> map=new HashMap<>();
+        map.put("type","set");
+        map.put("token",CacheUtils.getUserToken(getActivity(),DOCTOR_DATA));
+        map.put("date",dateOfDay);
+        map.put("time","10:00:00");
+
+        service.addNewDate(map).enqueue(new Callback<AddDateResponse>() {
+            @Override
+            public void onResponse(Call<AddDateResponse> call, Response<AddDateResponse> response) {
+                if (response.body().getStatus().equals("201")){
+                    AppUtils.showSuccessToast(getActivity(),"Date Added Successfully");
+                }else {
+                    AppUtils.showInfoToast(getActivity(),"Date Not Added");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddDateResponse> call, Throwable t) {
+                AppUtils.showErrorToast(getActivity(),"Date Not Added");
+            }
+        });
+
     }
 
 }

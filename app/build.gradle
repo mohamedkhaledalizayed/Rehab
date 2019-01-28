@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.nabinbhandari.android:permissions:3.8'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.gdacciaro:iosdialog:1.0.3'
+
     implementation "android.arch.lifecycle:runtime:$project.arch"
     implementation "android.arch.lifecycle:extensions:$project.arch"
     annotationProcessor "android.arch.lifecycle:compiler:$project.arch"

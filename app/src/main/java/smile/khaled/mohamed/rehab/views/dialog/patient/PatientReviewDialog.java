@@ -78,8 +78,8 @@ public class PatientReviewDialog extends DialogFragment {
         service.setRateForDoctor(map).enqueue(new Callback<EvaluationResponse>() {
             @Override
             public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) {
-                dismiss();
                 if (response.body().getStatus().equals("200")){
+                    dismiss();
                     AppUtils.showSuccessToast(getContext(),"Review Added Successfully");
                 }else {
                     AppUtils.showErrorToast(getContext(),"Review Not Added");

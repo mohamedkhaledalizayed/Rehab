@@ -23,17 +23,23 @@ import smile.khaled.mohamed.rehab.service.ServiceApi;
 import smile.khaled.mohamed.rehab.service.responses.both.message.SendMessageResponse;
 import smile.khaled.mohamed.rehab.utils.AppUtils;
 
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR;
+import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_DATA;
 import static smile.khaled.mohamed.rehab.data.Constants.PATIENT_DATA;
+import static smile.khaled.mohamed.rehab.data.Constants.USER_TYPE;
 
 public class SendMessageDialog  extends DialogFragment {
 
 
     public static ServiceApi service= RetrofitModule.getInstance().getService();
+    private String message;
+    private String receiverId;
 
-    public static SendMessageDialog newInstance(String title) {
+    public static SendMessageDialog newInstance(String id,String message) {
         SendMessageDialog frag = new SendMessageDialog();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString("id", id);
+        args.putString("message", message);
         frag.setArguments(args);
         return frag;
     }
@@ -41,6 +47,8 @@ public class SendMessageDialog  extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        receiverId=getArguments().getString("id");
+        message=getArguments().getString("message");
     }
 
     @Nullable
@@ -48,6 +56,10 @@ public class SendMessageDialog  extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.send_message_dialog, container, false);
         TextView textView=(TextView)view.findViewById(R.id.patients_review);
+
+        if (message != null && !message.equals("0")){
+            textView.setText(message);
+        }
 
         Button button=view.findViewById(R.id.send_message);
         button.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +80,12 @@ public class SendMessageDialog  extends DialogFragment {
 
         Map<String,String> map= new HashMap<>();
         map.put("type","set");
-        map.put("token",CacheUtils.getUserToken(getActivity(),PATIENT_DATA));
-        map.put("receiver","2");
+        if (CacheUtils.checkUserType(getActivity(),USER_TYPE).equals(DOCTOR)){
+            map.put("token",CacheUtils.getUserToken(getActivity(),DOCTOR_DATA));
+        }else {
+            map.put("token",CacheUtils.getUserToken(getActivity(),PATIENT_DATA));
+        }
+        map.put("receiver",receiverId);
         map.put("message",message);
         service.sendMessage(map).enqueue(new Callback<SendMessageResponse>() {
             @Override

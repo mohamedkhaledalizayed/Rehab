@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_36sdp"
             android:background="@drawable/signin_bg_btn"
-            android:text="Search"
+            android:text="@string/search"
             android:textColor="#fff"
             android:id="@+id/btn"
             android:textSize="@dimen/_15ssp"

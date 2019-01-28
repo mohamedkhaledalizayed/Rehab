@@ -74,7 +74,7 @@ public class PatientSearchResultAdapter extends RecyclerView.Adapter<PatientSear
         holder.binding.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handler.onShareClick("");
+                handler.onShareClick(recentList.get(position).getId());
             }
         });
 

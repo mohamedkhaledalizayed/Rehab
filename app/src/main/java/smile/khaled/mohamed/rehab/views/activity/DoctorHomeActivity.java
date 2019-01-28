@@ -20,9 +20,13 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bestsoft32.tt_fancy_gif_dialog_lib.TTFancyGifDialog;
 import com.bestsoft32.tt_fancy_gif_dialog_lib.TTFancyGifDialogListener;
+import com.gdacciaro.iOSDialog.iOSDialog;
+import com.gdacciaro.iOSDialog.iOSDialogBuilder;
+import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 
 import smile.khaled.mohamed.rehab.R;
 import smile.khaled.mohamed.rehab.data.CacheUtils;
@@ -35,11 +39,13 @@ import smile.khaled.mohamed.rehab.views.activity.both.TermsActivity;
 import smile.khaled.mohamed.rehab.views.fragment.DoctorAddDateFragment;
 import smile.khaled.mohamed.rehab.views.fragment.DoctorDatesFragment;
 import smile.khaled.mohamed.rehab.views.fragment.DoctorProfileFragment;
+import smile.khaled.mohamed.rehab.views.interfaces.doctor.IDoctorDataHandler;
 
 import static smile.khaled.mohamed.rehab.data.Constants.DOCTOR_DATA;
 
 
-public class DoctorHomeActivity extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener {
+public class DoctorHomeActivity extends BaseActivity  implements NavigationView.OnNavigationItemSelectedListener,
+        IDoctorDataHandler {
 
 
     private Toolbar toolbar;
@@ -177,30 +183,35 @@ public class DoctorHomeActivity extends BaseActivity  implements NavigationView.
     }
 
     private void logout(){
-        new TTFancyGifDialog.Builder(this)
+
+
+        new iOSDialogBuilder(this)
                 .setTitle("Logout")
-                .setMessage("Do You Want To Exit!")
-                .setPositiveBtnText("Ok")
-                .setPositiveBtnBackground("#22b573")
-                .setNegativeBtnText("Cancel")
-                .setNegativeBtnBackground("#c1272d")
-                .setGifResource(R.drawable.ic_undraw_loading_frh4)      //pass your gif, png or jpg
-                .isCancellable(true)
-                .OnPositiveClicked(new TTFancyGifDialogListener() {
+                .setSubtitle("Do You Want To Exit!")
+                .setBoldPositiveLabel(true)
+                .setCancelable(false)
+                .setPositiveListener(getString(R.string.ok),new iOSDialogClickListener() {
                     @Override
-                    public void OnClick() {
+                    public void onClick(iOSDialog dialog) {
                         CacheUtils.clearCache(DoctorHomeActivity.this);
                         startActivity(new Intent(DoctorHomeActivity.this,SignInActivity.class));
                         finish();
-                    }
-                })
-                .OnNegativeClicked(new TTFancyGifDialogListener() {
-                    @Override
-                    public void OnClick() {
+                        dialog.dismiss();
 
                     }
                 })
-                .build();
+                .setNegativeListener(getString(R.string.cancel), new iOSDialogClickListener() {
+                    @Override
+                    public void onClick(iOSDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build().show();
+
     }
 
+    @Override
+    public void onClick(String id) {
+        AppUtils.showSuccessToast(this,id);
+    }
 }

@@ -93,53 +93,54 @@ public class DoctorSignUpActivity extends BaseActivity {
             return;
         }
 
-        if (binding.citySpinner.getSelectedItemPosition() == 0) {
-            AppUtils.showInfoToast(this,"select your city");
-            return;
-        }
-
-        if (binding.districSpinner.getSelectedItemPosition() == 0) {
-            AppUtils.showInfoToast(this,"select your Destric");
-            return;
-        }
-
-        if (binding.specSpinner.getSelectedItemPosition() == 0) {
-            AppUtils.showInfoToast(this,"select your specialty");
-            return;
-        }
-
-        if (binding.genderSpinner.getSelectedItemPosition() == 0) {
-            AppUtils.showInfoToast(this,"select your city");
-            return;
-        }
-
-        if (binding.natSpinner.getSelectedItemPosition() == 0) {
-            AppUtils.showInfoToast(this,"select your city");
-            return;
-        }
+//        if (binding.citySpinner.getSelectedItemPosition() == 0) {
+//            AppUtils.showInfoToast(this,"select your city");
+//            return;
+//        }
+//
+//        if (binding.districSpinner.getSelectedItemPosition() == 0) {
+//            AppUtils.showInfoToast(this,"select your Destric");
+//            return;
+//        }
+//
+//        if (binding.specSpinner.getSelectedItemPosition() == 0) {
+//            AppUtils.showInfoToast(this,"select your specialty");
+//            return;
+//        }
+//
+//        if (binding.genderSpinner.getSelectedItemPosition() == 0) {
+//            AppUtils.showInfoToast(this,"select your city");
+//            return;
+//        }
+//
+//        if (binding.natSpinner.getSelectedItemPosition() == 0) {
+//            AppUtils.showInfoToast(this,"select your city");
+//            return;
+//        }
 
         if (properities.size() != 4){
             AppUtils.showInfoToast(this," Upload All Files");
             return;
         }
 
-        if (binding.genderSpinner.getSelectedItemPosition() == 1){
-            gender = "0";
-        }else {
-            gender = "1";
-        }
+//        if (binding.genderSpinner.getSelectedItemPosition() == 1){
+//            gender = "0";
+//        }else {
+//            gender = "1";
+//        }
 
         List<MultipartBody.Part> parts = new ArrayList<>();
 
         RequestBody nameBody = createPartFromString(doctorExperiences);
         RequestBody usernameBody = createPartFromString(username);
         RequestBody passwordBody = createPartFromString(password);
-        RequestBody genderBody = createPartFromString(gender);
+        RequestBody genderBody = createPartFromString("0");
         RequestBody mobileBody = createPartFromString("996"+phone);
         RequestBody emailBody = createPartFromString(email);
-        RequestBody cityBody = createPartFromString(binding.citySpinner.getSelectedItem().toString());
-        RequestBody neighborhoodBody = createPartFromString(binding.districSpinner.getSelectedItem().toString());
-
+//        RequestBody cityBody = createPartFromString(binding.citySpinner.getSelectedItem().toString());
+//        RequestBody neighborhoodBody = createPartFromString(binding.districSpinner.getSelectedItem().toString());
+        RequestBody cityBody = createPartFromString("2");
+        RequestBody neighborhoodBody = createPartFromString("3");
         if (properities != null) {
             for (int i = 0; i < 4; i++) {
                 parts.add(prepareFilePart(properities.get(i).getFileName(), properities.get(0).getFileUri()));

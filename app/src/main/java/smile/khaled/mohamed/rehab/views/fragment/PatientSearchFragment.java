@@ -62,18 +62,7 @@ public class PatientSearchFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PatientSearchFragment.
-     */
-
-
     private FragmentPatientSearchBinding binding;
-    // TODO: Rename and change types and number of parameters
     public static PatientSearchFragment newInstance(String param1, String param2) {
         PatientSearchFragment fragment = new PatientSearchFragment();
         Bundle args = new Bundle();
@@ -107,17 +96,19 @@ public class PatientSearchFragment extends BaseFragment {
                 loadCities();
                 loadNationality();
                 loadNeighborhood();
-        setGenderSpinner(getGender(getContext()));
+                setGenderSpinner(getGender(getContext()));
 
         return binding.getRoot();
     }
     final List<SpinnerData> cityList = new ArrayList<>();
 
     private void loadCities() {
-        cityList.add(new SpinnerData("0","اختار المدينة"));
+        cityList.clear();
+        cityList.add(new SpinnerData("0",getString(R.string.select_city)));
         service.cityApi().enqueue(new Callback<CityResponse>() {
             @Override
             public void onResponse(Call<CityResponse> call, Response<CityResponse> response) {
+
                 for (int i = 0; i<response.body().getData().size(); i++){
                     cityList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getCityName()));
                 }
@@ -134,7 +125,8 @@ public class PatientSearchFragment extends BaseFragment {
     final List<SpinnerData> nationalityList = new ArrayList<>();
 
     private void loadNationality(){
-        nationalityList.add(new SpinnerData("0","اختار الجنسية"));
+        nationalityList.clear();
+        nationalityList.add(new SpinnerData("0",getString(R.string.select_nationality)));
         Configuration config = getActivity().getResources().getConfiguration();
 
         Map<String,String> map=new HashMap<>();
@@ -142,6 +134,7 @@ public class PatientSearchFragment extends BaseFragment {
         service.nationality(map).enqueue(new Callback<NationalityResponse>() {
             @Override
             public void onResponse(Call<NationalityResponse> call, Response<NationalityResponse> response) {
+
                 for (int i=0; i < response.body().getData().size();i++){
                     nationalityList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getName()));
                 }
@@ -154,10 +147,12 @@ public class PatientSearchFragment extends BaseFragment {
             }
         });
     }
+
     final List<SpinnerData> neighborhoodList = new ArrayList<>();
 
     private void loadNeighborhood(){
-        neighborhoodList.add(new SpinnerData("0","اختار الحى"));
+        neighborhoodList.clear();
+        neighborhoodList.add(new SpinnerData("0",getString(R.string.select_neighborhood)));
         Configuration config = getActivity().getResources().getConfiguration();
 
         Map<String,String> map=new HashMap<>();
@@ -165,6 +160,7 @@ public class PatientSearchFragment extends BaseFragment {
         service.neighborhood(map).enqueue(new Callback<NeighborhoodResponse>() {
             @Override
             public void onResponse(Call<NeighborhoodResponse> call, Response<NeighborhoodResponse> response) {
+
                 for (int i=0; i < response.body().getData().size();i++){
                     neighborhoodList.add(new SpinnerData(response.body().getData().get(i).getId(),response.body().getData().get(i).getName()));
                 }
@@ -177,10 +173,12 @@ public class PatientSearchFragment extends BaseFragment {
             }
         });
     }
+
     final List<SpinnerData> specialtyList = new ArrayList<>();
 
     private void loadAllSpecialty(){
-        specialtyList.add(new SpinnerData("0","كل التخصصات"));
+        specialtyList.clear();
+        specialtyList.add(new SpinnerData("0",getString(R.string.all_spec)));
         service.specialtyApi().enqueue(new Callback<SpecialtyResponse>() {
             @Override
             public void onResponse(Call<SpecialtyResponse> call, Response<SpecialtyResponse> response) {
@@ -247,7 +245,6 @@ public class PatientSearchFragment extends BaseFragment {
 
     }
 
-
     public void setAllSpecSpinner(List<SpinnerData> list){
         SpinnerItemsAdapter adapter=new SpinnerItemsAdapter(list,BACKGROUND_COLOR_LIGHT);
         binding.allSpecSpinner.setAdapter(adapter);
@@ -280,9 +277,7 @@ public class PatientSearchFragment extends BaseFragment {
         genders.add(new SpinnerData("0",genderArray[1]));
         genders.add(new SpinnerData("1",genderArray[2]));
 
-
         return genders;
     }
-
 
 }

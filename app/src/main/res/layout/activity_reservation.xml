@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ScrollView xmlns:foo="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    <ScrollView xmlns:foo="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,6 +30,7 @@
                 android:layout_height="@dimen/_80sdp"
                 android:src="@drawable/mohamed"
                 android:id="@+id/doctor_image"
+                android:scaleType="centerCrop"
                 android:layout_margin="@dimen/_5sdp"
                 />
 
@@ -245,14 +247,15 @@
             <ImageView
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_update_24dp"
+                android:src="@drawable/ic_location_on_black_24dp"
                 />
 
             <smile.khaled.mohamed.rehab.utils.CustomTextView
                 foo:customFont="fonts/Cairo-Regular.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13:45 مساء"
+                android:text="حدد موقعك"
+                android:id="@+id/location"
                 android:textColor="#000"
                 />
 
@@ -289,12 +292,26 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_36sdp"
             android:background="@drawable/signin_bg_btn"
+            android:text="Date"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:onClick="getDate"
+            android:layout_margin="@dimen/_20sdp"
+            />
+
+        <smile.khaled.mohamed.rehab.utils.CustomButton
+            foo:customFont="fonts/Cairo-Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:background="@drawable/signin_bg_btn"
             android:text="Location"
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="18sp"
             android:onClick="location"
-            android:layout_margin="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             />
 
         <smile.khaled.mohamed.rehab.utils.CustomButton
@@ -306,6 +323,7 @@
             android:textColor="#fff"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:id="@+id/res_button"
             android:onClick="confirmReservation"
             android:layout_margin="@dimen/_20sdp"
             />

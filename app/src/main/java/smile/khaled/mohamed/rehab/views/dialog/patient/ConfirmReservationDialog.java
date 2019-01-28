@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import smile.khaled.mohamed.rehab.R;
 
 public class ConfirmReservationDialog extends DialogFragment {
@@ -28,5 +31,13 @@ public class ConfirmReservationDialog extends DialogFragment {
 
         // Do all the stuff to initialize your custom view
 
+        Map<String,String> map=new HashMap<>();
+        map.put("","");
+        map.put("","");
+        map.put("","");
+        map.put("","");
+        map.put("","");
+        map.put("","");
+        map.put("","");
         return view;    }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,6 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="@dimen/_8sdp"
+        android:id="@+id/doctor_profile"
         android:background="@drawable/favourite_item_bg"
         >
 
@@ -49,7 +51,7 @@
                         foo:customFont="fonts/Cairo-Regular.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="د/مصطفى احمد"
+                        android:id="@+id/doctor_name"
                         android:textStyle="bold"
                         android:textColor="#000"
                         android:layout_marginEnd="@dimen/_5sdp"
@@ -67,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="اخصائى جراحة القلب"
+                    android:id="@+id/doctor_spec"
                     android:textStyle="bold"
                     android:textColor="#000"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -86,6 +89,7 @@
                         style="@style/Widget.MaterialRatingBar.RatingBar"
                         android:numStars="5"
                         android:rating="4"
+                        android:id="@+id/doctor_rate"
                         android:isIndicator="true"
                         app:mrb_fillBackgroundStars="true"
                         app:mrb_progressTint="#ffc400"
@@ -138,6 +142,7 @@
                 android:layout_height="@dimen/_25sdp"
                 android:background="@drawable/dates_btn_bg"
                 android:text="تعديل"
+                android:id="@+id/edit_profile"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:textColor="#fff"
                 android:textStyle="bold"
@@ -152,6 +157,7 @@
             android:text="The star border icon is drawn with the help of Inkscape, by downloading the star icon SVG from Material Icons, duplicating the outer border path of the star, setting a stroke of 4dp, running stroke to path on it."
             android:textAlignment="center"
             android:textColor="#000"
+            android:id="@+id/doctor_note"
             android:padding="@dimen/_5sdp"
             />
 
@@ -184,3 +190,4 @@
 
 
 </LinearLayout>
+</layout>
